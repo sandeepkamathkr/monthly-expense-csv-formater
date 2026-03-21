@@ -75,18 +75,24 @@ Each input file gets a corresponding processed file:
 
 | Category | Examples |
 |---|---|
-| Eating out | DoorDash, Guzman Y Gomez, restaurants, cafes |
+| Eating out | DoorDash, Guzman Y Gomez, Mad Mex, Fried Brothers, restaurants, cafes |
 | Groceries | Coles, Woolworths, Aldi, Sunrise Fresh |
-| Bills | Electricity, council rates, subscriptions |
-| Transport | Opal, parking, Toyota service |
-| Entertainment | Netflix, Disney+, Apple, Audible |
-| Fitness | Box fitness, gym memberships |
-| Medicine | Chemist Warehouse, Specsavers |
-| Insurance | Medibank, Toyota Insurance |
-| Shopping | Kmart, Big W, Officeworks |
-| Utilities | Optus, Vodafone, Aussie Broadband |
+| Medicine | Chemist Warehouse, ShopBack Chemist |
+| Transport | Opal, Wilson Parking, EasyPark, PCC Eat Street |
+| Sandeep Fitness | Box Fitness, gym memberships |
+| Entertainment | Netflix, Disney+, Apple, Audible, Claude.AI, ChatGPT |
+| Shopping | Kmart, Big W, Officeworks, Cheesecake Shop, Specsavers |
+| Internet | Aussie Broadband, Vodafoneaus |
+| Mobile bill | Optus, Vodafone |
+| Medical insurance | Medibank PHI, Bupa |
+| Life insurance | Medibank Life, AIA |
+| Car insurance | Toyota Insurance, NRMA |
+| Car Service | Parramatta Toyota |
+| Day care | Advanced EL |
+| Isha Swimming | Cumberland Council |
+| Personal Care | Brown Boys haircut, barber, salon |
 | Rent | Starr Partners Trust Account |
-| Personal Care | Haircuts, grooming |
+| Bills | Direct Debits, subscriptions |
 | Other | Anything not matched above |
 
 ---
