@@ -36,71 +36,94 @@ class SimpleTransactionCategorizer:
     def __init__(self):
         self.category_rules = {
             'Eating out': [
-                'DOORDASH', 'MENULOG', 'UBER EATS', 'RESTAURANT', 'GUZMAN Y GOMEZ', 
+                'DOORDASH', 'MENULOG', 'UBER EATS', 'RESTAURANT', 'GUZMAN Y GOMEZ',
                 'MCDONALD', 'KFC', 'SUBWAY', 'PIZZA', 'CAFE', 'BAKERY', 'DUMPLINGS',
                 'CURRY LOVERS', 'LITTLE GREECE', 'INCAFE', 'CHAT THAI', 'SUSHI',
-                'CHEESECAKE SHOP', 'NOODLE BAR', 'CENTRAL FRUIT JUICE', 'MANOUSHI',
+                'NOODLE BAR', 'CENTRAL FRUIT JUICE', 'MANOUSHI',
                 'BREADTOP', 'CHATIME', 'LEAF CAFE', 'CHARGRILL', 'URBAN CHOWK',
-                'PMC GOLDEN TOWER', 'CHINESE', 'INDIAN', 'JAPANESE', 'THAI',
+                'PMC GOLDEN TOWER', 'CHINESE', 'JAPANESE', 'THAI',
                 'BISTRO', 'GRILL', 'KITCHEN', 'EATERY', 'TAKEAWAY', 'DELIVERY',
-                'DASHPASS'
+                'DASHPASS',
+                # Confirmed eating out vendors
+                'FRIED BROTHERS', 'INDOCHAINESE', 'MRS WANG', 'AMRITSARI DHABA',
+                'CHERRY BEAN', 'SAVIA MANRAM', 'SAIVA MANRAM', 'MAD MEX',
+                'LITTLE INDIA', 'MAX BRENNER', 'S PATEL & K SHAH', 'THREEFOLD PASTRY',
+                'MESSINA', 'THREE BEANS', 'JAIPUR SWEETS', 'NARAYAN',
+                'SHOPBACK SARAVANAA', 'A2B SYDNEY', 'DAVID S KITCHEN',
+                '7 ELEVEN', '7-ELEVEN', 'WESTMEAD PRIVATE', 'LS PHTY',
+                'TAM PH PTY', 'GECAL ENTERPRISES', 'BWS LIQUOR', 'CHATKAZZ',
+                'SHARVIL FOODS', 'RIMPLE KANE',
             ],
             'Groceries': [
-                'COLES', 'WOOLWORTHS', 'ALDI', 'IGA', 'SUNRISE FRUIT', 'GREEN FARM MEAT',
-                'BUTCHER', 'GROCERY', 'SUPERMARKET', 'FRUIT', 'VEGETABLE', 'VEGE',
-                'MARKET', 'FRESH'
+                'COLES', 'WOOLWORTHS', 'ALDI', 'IGA', 'SUNRISE FRUIT', 'SUNRISE FRESH',
+                'GREEN FARM MEAT', 'BUTCHER', 'GROCERY', 'SUPERMARKET', 'FRESH',
             ],
             'Medicine': [
-                'CHEMIST WAREHOUSE', 'PHARMACY', 'QSCAN', 'LAVERTY PATHOLOGY', 
-                'DARCY ROAD PHARMACY', 'MEDICAL', 'DENTIST', 'DOCTOR', 'HOSPITAL',
-                'CLINIC', 'HEALTH', 'MEDICARE'
+                'CHEMIST WAREHOUSE', 'SHOPBACK CHEMIST', 'PHARMACY', 'QSCAN', 'LAVERTY PATHOLOGY',
+                'DARCY ROAD PHARMACY', 'DENTIST', 'HOSPITAL', 'CLINIC', 'MEDICARE',
             ],
             'Transport': [
-                'TRANSPORTFORNSW', 'TAP', 'OPAL', 'TRAIN', 'BUS', 'FERRY', 'TRANSPORT',
-                'UBER', 'TAXI', 'RIDESHARE'
+                'TRANSPORTFORNSW', 'OPAL', 'TRAIN', 'BUS', 'FERRY',
+                'UBER', 'TAXI', 'RIDESHARE', 'PARKING', 'WILSON PARKING', 'EASYPARK',
+                'PCC EAT STREET',
             ],
-            'Fitness': [
-                'BOXFITNESS', 'GYM', 'FITNESS', 'YOGA', 'PILATES', 'SPORT', 'GOCARDLESS'
+            'Sandeep Fitness': [
+                'BOXFITNESS', 'GYM', 'FITNESS', 'YOGA', 'PILATES', 'SPORT', 'GOCARDLESS',
             ],
             'Entertainment': [
                 'NETFLIX', 'SPOTIFY', 'APPLE.COM/BILL', 'APPLE MUSIC', 'DISNEY',
-                'AMAZON PRIME', 'ENTERTAINMENT', 'MOVIE', 'CINEMA', 'PARK', 'ZOO',
-                'MUSEUM', 'OEH', 'NATIONAL PARK', 'OPENAI', 'CHATGPT'
+                'PAYPAL *NETFLIX', 'PAYPAL *DISNEY',
+                'AMAZON PRIME', 'ENTERTAINMENT', 'MOVIE', 'CINEMA',
+                'OPENAI', 'CHATGPT', 'CLAUDE.AI',
+                'AUDIBLE', 'KINDLE',
             ],
             'Shopping': [
                 'AMAZON', 'EBAY', 'OFFICEWORKS', 'COSTCO', 'TARGET', 'KMART', 'BUNNINGS',
-                '7-ELEVEN', 'CONVENIENCE', 'PETROL', 'SERVICE STATION', 'SHELL',
-                'BP', 'CALTEX'
+                'BIG W', 'THE REJECT SHOP',
+                # Confirmed shopping vendors
+                'DISCOUNT PARTY WAREHOUSE', 'HOME AND HUTCH', 'MICHE BOUTIQUE',
+                'CAKE DECORATING', 'SMART DOLLAR', 'SPECSAVERS', 'CHEESECAKE SHOP',
             ],
-            'Utilities': [
-                'ORIGIN ENERGY', 'AGL', 'ENERGY', 'ELECTRICITY', 'GAS', 'WATER',
-                'INTERNET', 'TELSTRA', 'OPTUS', 'VODAFONE', 'PAYPAL *VODAFONE'
+            'Internet': [
+                'AUSSIE BROADBAND', 'TELSTRA', 'INTERNET', 'NBN', 'BROADBAND',
+                'VODAFONEAUS',
             ],
-            'Insurance': [
-                'MEDIBANK', 'BUPA', 'AIA', 'AIOI NISSAY', 'INSURANCE'
+            'Mobile bill': [
+                'OPTUS', 'VODAFONE', 'PAYPAL *VODAFONE', 'PREPAID', 'BOOST MOBILE',
+            ],
+            'Medical insurance': [
+                'MEDIBANK PHI', 'BUPA', 'HCF', 'NIB', 'HEALTH FUND', 'HEALTH INSURANCE',
+            ],
+            'Life insurance': [
+                'MEDIBANK LIFE', 'AIA', 'TAL LIFE', 'LIFE INSURANCE',
+            ],
+            'Car insurance': [
+                'TOYOTA INSURANCE', 'AIOI NISSAY', 'NRMA', 'AAMI', 'RACV', 'CAR INSURANCE',
+            ],
+            'Car Service': [
+                'PARRAMATTA TOYOTA', 'CAR SERVICE', 'AUTO SERVICE', 'MECHANIC',
+            ],
+            'Day care': [
+                'ADVANCED EL',
+            ],
+            'Isha Swimming': [
+                'CUMBERLAND COUNC',
             ],
             'Personal Care': [
-                'HAIRCUT', 'BARBER', 'SALON', 'BEAUTY', 'SMP*BROWN BOYS'
+                'HAIRCUT', 'BARBER', 'SALON', 'BEAUTY', 'SMP*BROWN BOYS', 'BROWN BOYS',
             ],
             'Rent': [
-                'STARR PARTNERS', 'RENT', 'REAL ESTATE'
+                'STARR PARTNERS', 'RENT', 'REAL ESTATE',
             ],
             'Personal Transfer': [
-                'TRANSFER TO', 'PAYID', 'OSKO', 'TRANSFER FROM', 'KALATHIL', 'KAMATH'
+                'TRANSFER TO', 'PAYID', 'OSKO', 'TRANSFER FROM', 'KALATHIL', 'KAMATH',
             ],
             'Bills': [
-                'BPAY', 'DIRECT DEBIT', 'SUBSCRIPTION', 'COUNCIL', 'CUMBERLAND',
-                'HSBC CARDS', 'ADVANCED EL'
+                'BPAY', 'DIRECT DEBIT', 'SUBSCRIPTION',
             ],
             'Fees': [
-                'INTERNATIONAL TRANSACTION FEE', 'OVERSEAS TRANSACTION FEE', 'FEE', 'CHARGE'
+                'INTERNATIONAL TRANSACTION FEE', 'OVERSEAS TRANSACTION FEE', 'FEE', 'CHARGE',
             ],
-            'Income': [
-                'SALARY', 'WAGE', 'PAY', 'INCOME', 'REFUND', 'TRANSPORTSERVICE'
-            ],
-            'Benefits': [
-                'MCARE BENEFITS', 'CENTRELINK', 'BENEFITS', 'GOVERNMENT'
-            ]
         }
     
     def categorize(self, description):
