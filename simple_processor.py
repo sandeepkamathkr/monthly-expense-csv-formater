@@ -22,6 +22,10 @@ EXCLUDE_FILTERS = [
     'SALARY',               # Salary/wage income coming in
     'DR RABIA SHAIKH',      # One-off doctor payment
     'RETURN ',              # Refunds/returns credited back
+    'ULTRASOUND FOR WOMEN', # One-off medical scan
+    'WESTERN SYDNEY ONCOLOGY', # One-off medical
+    'AGA OVHC',             # Overseas visitor health cover (one-off)
+    'AIOI NISSAY',          # Annual car insurance payment (one-off)
 ]
 
 def is_excluded(description):
@@ -53,6 +57,10 @@ class SimpleTransactionCategorizer:
                 '7 ELEVEN', '7-ELEVEN', 'WESTMEAD PRIVATE', 'LS PHTY',
                 'TAM PH PTY', 'GECAL ENTERPRISES', 'BWS LIQUOR', 'CHATKAZZ',
                 'SHARVIL FOODS', 'RIMPLE KANE',
+                'UBER EATS', 'UBER *EATS', 'UBEREATS',
+                'SARAVANAA BHAVAN', 'BIGBITE', 'RR BIRYANI', 'BIRYANI HOUSE',
+                'PICCOLO ME', 'TANNA SWEETS', 'LA MONO', 'JAYA SUMAN',
+                'BBD WORLD SQUARE', 'RESTAU',
             ],
             'Groceries': [
                 'COLES', 'WOOLWORTHS', 'ALDI', 'IGA', 'SUNRISE FRUIT', 'SUNRISE FRESH',
@@ -64,8 +72,8 @@ class SimpleTransactionCategorizer:
             ],
             'Transport': [
                 'TRANSPORTFORNSW', 'OPAL', 'TRAIN', 'BUS', 'FERRY',
-                'UBER', 'TAXI', 'RIDESHARE', 'PARKING', 'WILSON PARKING', 'EASYPARK',
-                'PCC EAT STREET',
+                'UBER *TRIP', 'UBER *RIDE', 'TAXI', 'RIDESHARE', 'PARKING', 'WILSON PARKING', 'EASYPARK',
+                'PCC EAT STREET', 'SPEEDWAY', 'METRO PETROLEUM', 'PETROLEUM', 'PETROL',
             ],
             'Sandeep Fitness': [
                 'BOXFITNESS', 'GYM', 'FITNESS', 'YOGA', 'PILATES', 'SPORT', 'GOCARDLESS',
@@ -74,7 +82,7 @@ class SimpleTransactionCategorizer:
                 'NETFLIX', 'SPOTIFY', 'APPLE.COM/BILL', 'APPLE MUSIC', 'DISNEY',
                 'PAYPAL *NETFLIX', 'PAYPAL *DISNEY',
                 'AMAZON PRIME', 'ENTERTAINMENT', 'MOVIE', 'CINEMA',
-                'OPENAI', 'CHATGPT', 'CLAUDE.AI',
+                'OPENAI', 'CHATGPT', 'CLAUDE.AI', 'ANTHROPIC',
                 'AUDIBLE', 'KINDLE',
             ],
             'Shopping': [
@@ -83,6 +91,7 @@ class SimpleTransactionCategorizer:
                 # Confirmed shopping vendors
                 'DISCOUNT PARTY WAREHOUSE', 'HOME AND HUTCH', 'MICHE BOUTIQUE',
                 'CAKE DECORATING', 'SMART DOLLAR', 'SPECSAVERS', 'CHEESECAKE SHOP',
+                'UDEMY', 'B FREE', 'BESTLESSPTY',
             ],
             'Internet': [
                 'AUSSIE BROADBAND', 'TELSTRA', 'INTERNET', 'NBN', 'BROADBAND',
@@ -220,18 +229,22 @@ def process_file(filename, output_format):
             result_df['Category'] = result_df['Description'].apply(categorizer.categorize)
             
         elif output_format == "Date_Description_Amount_Category":
-            # For TransHist.csv
+            # For TransHist.csv - negative amounts are refunds/credits, keep sign to filter them out
             if file_format == 'has_headers' and 'Category' in df.columns:
-                # Already has proper headers and categories
                 result_df['Date'] = df['Date'].apply(clean_date) if 'Date' in df.columns else df.iloc[:, 0].apply(clean_date)
                 result_df['Description'] = df['Description'].astype(str).str.strip() if 'Description' in df.columns else df.iloc[:, 2].astype(str).str.strip()
                 result_df['Amount'] = df['Amount'].apply(clean_amount) if 'Amount' in df.columns else df.iloc[:, 3].apply(clean_amount)
                 result_df['Category'] = df['Category'].astype(str).str.strip() if 'Category' in df.columns else result_df['Description'].apply(categorizer.categorize)
             else:
-                # Raw format - no proper headers
+                # Raw format - preserve sign so negatives (refunds/credits) are filtered out below
                 result_df['Date'] = df.iloc[:, 0].apply(clean_date)
                 result_df['Description'] = df.iloc[:, 2].astype(str).str.strip()
-                result_df['Amount'] = df.iloc[:, 3].apply(clean_amount)
+                def parse_signed_amount(x):
+                    try:
+                        return float(str(x).replace('"','').replace(',','').strip())
+                    except:
+                        return 0.0
+                result_df['Amount'] = df.iloc[:, 3].apply(parse_signed_amount)
                 result_df['Category'] = result_df['Description'].apply(categorizer.categorize)
         
         # Filter positive amounts and clean data
